@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 import time, sys
 import pyqtgraph as pg
 from PyQt6 import QtCore, QtWidgets
@@ -32,7 +32,7 @@ class IMUAnalyzer:
         # FFT setup
         #
 
-        self.window = signal.windows.get_window(self.WINDOW, self.FFT_SIZE)
+        self.sigwin = signal.windows.get_window(self.WINDOW, self.FFT_SIZE)
 
         # data
         self.Fs = 1
@@ -164,7 +164,7 @@ class IMUAnalyzer:
         buf = np.array(buf) - np.mean(np.array(buf))
 
         # window the data for a better behaved short-time FT style DFT
-        data = np.array(buf) * self.window
+        data = np.array(buf) * self.sigwin
 
         # compute DFT via FFT
         Y = fft(data)

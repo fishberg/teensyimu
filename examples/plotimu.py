@@ -1,7 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 import time, sys
 import pyqtgraph as pg
-from pyqtgraph.Qt import QtCore, QtGui
+from PyQt6 import QtCore, QtWidgets
 
 import teensyimu as ti
 
@@ -43,6 +43,8 @@ def main():
     driver.registerCallbackIMU(imu_cb)
     driver.sendRate(500)
 
+    app = QtWidgets.QApplication([])
+
     # https://pyqtgraph.readthedocs.io/en/latest/plotting.html#examples
     pw = pg.plot(title="Accelerometer")
     timer = pg.QtCore.QTimer()
@@ -50,11 +52,13 @@ def main():
         pw.plot(At, Ax, pen=(1,3), clear=True)
         pw.plot(At, Ay, pen=(2,3))
         pw.plot(At, Az, pen=(3,3))
-        QtGui.QApplication.processEvents()
+        app.processEvents()
 
     timer.timeout.connect(update)
     timer.start(50) # ms
-    QtGui.QApplication.instance().exec_()
+
+    # Block on application window
+    app.exec()
 
     # clean up to prevent error or resource deadlock
     driver.unregisterCallbacks()

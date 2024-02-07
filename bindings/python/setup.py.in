@@ -9,11 +9,11 @@ setup(
 #    package_dir={'': '${CMAKE_CURRENT_BINARY_DIR}'}, # win32 doesn't like -- paths should be relative
     packages=['teensyimu'],
     install_requires=[
-      "matplotlib",
-      "numpy",
-      "pyqtgraph",
-      "pyqt5",
-      "pyserial",
+      #"matplotlib",
+      #"numpy",
+      #"pyqtgraph",
+      #"pyqt5",
+      #"pyserial",
     ],
     package_data={'': ['*.so',  '*.pyd']}
 )
